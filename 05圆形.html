@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>圆形</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+      ctx.moveTo(200,200)
+      // 语法：ctx.arc(x, y, r, sAngle, eAngle, counterclockwise);
+      // x,y:圆心坐标
+      // r:半径大小
+      // sAngle:绘制开始的角度
+      // eAngle:结束的角度   弧度和角度转换:rad = deg*Math.PI/180
+      // counterclockwise：是否逆时针 true是逆时针 false：顺时针
+      // ctx.arc(200,200,100,100,90,true)
+      // 如需通过 arc() 来创建圆，请把起始角设置为 0，结束角设置为 2 * Math.PI。
+      ctx.arc(200, 200, 100, 0 * Math.PI, 2* Math.PI);
+      ctx.closePath()
+      ctx.fillStyle = 'red'
+      ctx.fill()
+      // ctx.stroke()
+
+
+      // 绘制太极八卦
+       //绘制白色半圆的代码如下：
+      ctx.beginPath();
+      ctx.arc(400, 400, 80, 1.5 * Math.PI, Math.PI / 2, false);
+      ctx.fillStyle = "red";
+      ctx.closePath();
+      ctx.fill();
+
+      //绘制黑色半圆的代码如下：
+      ctx.beginPath();
+      ctx.arc(400, 400, 80, Math.PI / 2, 1.5 * Math.PI, false);
+      ctx.fillStyle = "black";
+      ctx.closePath();
+      ctx.fill();
+
+       //绘制黑色小圆
+      ctx.beginPath();
+      ctx.arc(400, 440, 40, 0, Math.PI * 2, true);
+      ctx.fillStyle = "black";
+      ctx.closePath();
+      ctx.fill();
+
+       //绘制白色小圆
+      ctx.beginPath();
+      ctx.arc(400, 360, 40, 0, Math.PI * 2, true);
+      ctx.fillStyle = "red";
+      ctx.closePath();
+      ctx.fill();
+
+      //绘制白色小圆心
+      ctx.beginPath();
+      ctx.arc(400, 360, 5, 0, Math.PI * 2, true);
+      ctx.fillStyle = "black";
+      ctx.closePath();
+      ctx.fill();
+
+        //绘制黑色小圆心
+      ctx.beginPath();
+      ctx.arc(400, 440, 5, 0, Math.PI * 2, true);
+      ctx.fillStyle = "red";
+      ctx.closePath();
+      ctx.fill();
+
+       //绘制文字代码如下：
+      ctx.save();
+      ctx.fillStyle = "black";
+      ctx.globalAlpha = "0.4";
+      ctx.textAlign = "center";
+      ctx.font = "32px Arial";
+      ctx.shadowColor = "rgba(0,0,0,0.4)";
+      ctx.shadowOffsetX = 15;
+      ctx.shadowOffsetY = -10;
+      ctx.shadowBlur = 2;
+      ctx.fillText('Hello Canavs', 200, 100);//IE不支持
+
+      ctx.restore();
+
+    })()
+
+  </script>
+</body>
+
+</html>

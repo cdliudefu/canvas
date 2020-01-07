@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>画布输出</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+  <!-- 输出画布中的内容 -->
+  <p>1、直接调用canvas对象的toDataURL方法转化为指定类型</p>
+  <img src="" alt="" id="img_demo">
+  <p>2、利用canvas对象的toBlob方法</p>
+  <div id="img_demo2"></div>
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+
+      ctx.strokeRect(20,20,100,200)
+      ctx.fillRect(300,100,200,50)
+
+      // 1.直接调用canvas对象的toDataURL方法转化为指定类型
+      // canvas.toDataURL(type, args)
+      // 该方法能够将canvas转换为图像，图像是基于Base64编码的。如果不指定两个参数，无参数调用该方法，转换的图像格式为png格式
+      // •type: 指定要转换的图像格式，如 image / png、image / jpeg等。
+      // •args: 可选参数。例如，如果type为image / jpeg，则args可以是0.0和1.0之间的值，以指定图像的品质。
+      var img = document.querySelector('#img_demo')
+      img.src = cv.toDataURL('image/png')
+
+      //2.利用canvas对象的toBlob方法
+      // 先通过toBlob将canvas对象转化为二进制对象，通过参数形式传入函数，
+      // 然后利用URL.createObjectURL方法根据传入的参数创建一个指向该参数blob对象的url, 然后把url赋给img的src属性即可
+      // 注意：URL.revokeObjectURL()方法会销毁一个通过URL.createObjectURL()创建的对象URL.
+      //当你要把url赋给newImg之后, 并且浏览器已经onload成功这个img, 
+      //那么此时就再不需要指向blob对象的url, 这个时候就应该把这个对象销毁掉，避免占用内存。
+      cv.toBlob && cv.toBlob(function (blob) {
+        var url = URL.createObjectURL(blob);
+        var newImg = new Image();
+        newImg.onload = function () {
+          URL.revokeObjectURL(url)
+        };
+        newImg.src = url;
+        console.log(newImg)
+        document.querySelector('#img_demo2').appendChild(newImg)
+      })
+
+      
+      ctx.closePath()
+
+    })()
+
+  </script>
+</body>
+
+</html>

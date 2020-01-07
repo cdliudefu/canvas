@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>位移画布</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+      //context.translate(x,y) 将图形 x 轴移动 x , y 轴移动 y
+      ctx.strokeRect(0,0,100,100)
+      ctx.translate(50,50) // 发生了坐标位移
+      ctx.strokeRect(0,0,100,100) // 最后绘制矩形也发生了位移
+      ctx.stroke()
+      
+
+      ctx.closePath()
+
+
+    })()
+
+  </script>
+</body>
+
+</html>

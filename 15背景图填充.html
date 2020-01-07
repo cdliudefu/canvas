@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>背景图填充</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+      //设置背景图
+      // context.createPattern(img,repeat-style)
+      // repeat-style 可选值：no-repeat、repeat-x、repeat-y、repeat
+      var img = new Image()
+      img.src = './img/a.jpg'
+      img.onload = function(){
+        var pat = ctx.createPattern(img,'repeat-x')
+        ctx.rect(0,0,900,600)
+        ctx.fillStyle = pat
+        ctx.fill()
+      }
+
+      ctx.closePath()
+
+
+    })()
+
+  </script>
+</body>
+
+</html>

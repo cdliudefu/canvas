@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>画板</title>
+</head>
+<body>
+  <canvas id="canvasId">
+    你浏览器不支持canvas
+  </canvas>
+
+  <script>
+  (function(){
+    var cv = document.querySelector('#canvasId')
+    var ctx = cv.getContext('2d')
+    cv.width = 900
+    cv.height = 600
+    cv.style.border = '1px solid #ccc'
+
+    // 鼠标按下
+    cv.onmousedown = function(e){
+      var bound = cv.getBoundingClientRect()
+      var x = e.clientX - bound.left
+      var y  = e.clientY - bound.top
+      ctx.beginPath()
+      ctx.moveTo(x,y)
+      // 鼠标移动
+      cv.onmousemove = function(e){
+        var obj = cv.getBoundingClientRect()
+        var x = e.clientX - obj.left
+        var y = e.clientY - obj.top
+        ctx.lineTo(x,y)
+        ctx.stroke()
+      }
+      // 鼠标释放
+      cv.onmouseup = function(e){
+        cv.onmousemove = null
+        cv.onmouseup = null
+      }
+    }
+
+  })()
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>表格</title>
+</head>
+<body>
+  <canvas id="canvasId">
+    你浏览器不支持canvas
+  </canvas>
+
+  <script>
+  (function(){
+    var cv = document.getElementById('canvasId')
+    var ctx = cv.getContext('2d')
+
+    cv.width = 900
+    cv.height = 600
+    cv.style.border = '1px solid #ccc'
+
+    var rows = 40,colums=70,rectSize = 30;
+    //绘制表格
+    ctx.beginPath()
+
+    // 1、绘制行
+    for(var i=0;i<rows;i++){
+      ctx.moveTo(0,i*rectSize)
+      ctx.lineTo(colums*rectSize,i*rectSize)
+    }
+    // 2、绘制列
+    for(var j=0;j<colums;j++){
+      ctx.moveTo(j*rectSize,0)
+      ctx.lineTo(j*rectSize,rows*rectSize)
+    }
+    // 绘制线条颜色和宽度
+    ctx.strokeStyle = '#ccc'
+    ctx.lineWith = 0.5
+
+    ctx.closePath()
+    ctx.stroke()
+
+    // 绘制折线图
+    var data = [40, 48, 50, 70, 60, 40, 20, 60, 80, 90]
+    var x0 = 100,y0=400;
+    var maxWidth = 500,maxHeight = 300;arrowWidth = 10;
+
+    ctx.beginPath()
+   // 1、绘制横坐标和纵坐标
+    ctx.moveTo(x0,y0)
+    ctx.lineTo(x0+maxWidth,y0)
+    ctx.lineTo(x0+maxWidth - arrowWidth,y0-arrowWidth)
+    ctx.moveTo(x0+maxWidth,y0)
+    ctx.lineTo(x0+maxWidth-arrowWidth,y0+arrowWidth)
+
+    ctx.moveTo(x0,y0)
+    ctx.lineTo(x0,y0-maxHeight)
+    ctx.lineTo(x0-arrowWidth,y0-maxHeight+arrowWidth)
+    ctx.moveTo(x0,y0-maxHeight)
+    ctx.lineTo(x0+arrowWidth,y0-maxHeight+arrowWidth)
+
+    ctx.strokeStyle = '#333'
+    ctx.lineWith = 2
+
+    ctx.closePath()
+    ctx.stroke()
+
+   // 2、绘制折线
+    var points = [];
+    var w = maxWidth/data.length // 横坐标划分等分
+    var h = maxHeight/100 // 横坐标划分100等分
+    for (var i = 1; i <= data.length; i++) {
+      points.push({
+        x:i*w+x0,
+        y:(y0-data[i]*h)
+      })
+    }
+    ctx.beginPath()
+    ctx.moveTo(x0,y0)
+    for(var j=0;j<points.length;j++){
+      ctx.lineTo(points[j].x,points[j].y)
+    }
+    ctx.strokeStyle = 'purple'
+    ctx.lineWith = 1
+
+    ctx.closePath()
+    ctx.stroke()
+
+  })()
+  
+  </script>
+</body>
+</html>

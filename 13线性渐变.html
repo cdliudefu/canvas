@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>线性渐变</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+      // 从画布的220，0位置开始渐变，遇到文字进行渐变，遇到形状进行渐变
+      // 从(xtart,ystart)坐标到(xend,yend)的线性渐变(在坐标范围内渐变)
+      // grd=context.createLinearGradient(xstart,ystart,xend,yend);
+      var grd = ctx.createLinearGradient(220,0,390,0)
+
+      // 添加渐变节点
+      // 在stop处设置color，stop取值 0~1 的浮点值
+      grd.addColorStop(0,'teal')
+      grd.addColorStop(0.5,'blue')
+      grd.addColorStop(0.7,'#ccc')
+      grd.addColorStop(1,'#999')
+
+      ctx.fillStyle = grd // 把渐变设置到填充的样式属性上
+      ctx.font = '50px "微软雅黑"'
+      ctx.fillText('中国人',200,200) // 绘制文字
+      ctx.fillRect(200,300,100,100) // 绘制填充矩形
+    
+
+      ctx.closePath()
+
+
+    })()
+
+  </script>
+</body>
+
+</html>

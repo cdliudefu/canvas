@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文字</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      //绘制参照坐标
+      ctx.beginPath()
+
+      ctx.moveTo(0,300);
+      ctx.lineTo(900,300)
+      ctx.strokeStyle = 'teal'
+      ctx.stroke()
+
+      ctx.moveTo(450,0)
+      ctx.lineTo(450,600)
+      ctx.stroke()
+
+      ctx.fillRect(445,295,10,10)
+
+      // 绘制字体
+      ctx.font = '20px "微软雅黑"' // 设置字体大小
+      ctx.fillStyle = 'red'
+      ctx.textBaseline = 'top' // 设置字体对齐基线  文本基线是 em 方框的顶端
+      ctx.fillText('Top-g',100,300) // 填充文字
+
+      ctx.textBaseline = 'middle' // 文本基线是 em 方框的正中。
+      ctx.fillText('middle-g',200,300)
+
+      ctx.textBaseline = 'bottom'  // 文本基线是 em 方框的底端。
+      ctx.fillText('bottom-g',490,300)
+
+      ctx.textBaseline = 'alphabetic' //默认。文本基线是普通的字母基线。
+      ctx.fillText('Alphabetic-g',650,300)
+
+      // 设置对齐方式
+      ctx.fillStyle = 'purple'
+      ctx.textAlign = 'left'
+      ctx.strokeText('left',450,400)
+
+      ctx.textAlign = 'right'
+      ctx.strokeText('right',450,440)
+
+      ctx.textAlign = 'start'
+      ctx.strokeText('start', 450, 480)
+
+      ctx.textAlign = 'end'
+      ctx.strokeText('end', 450, 520)
+
+      ctx.textAlign = 'center'
+      ctx.strokeText('center', 450, 560)
+
+      ctx.closePath()
+     
+    })()
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>径向渐变</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      // 径向渐变
+      ctx.beginPath()
+      // 从圆心坐标(x0,y0)半径为r0的圆到圆心坐标(x1,y1)半径为r1的圆坐标之间的径向渐变
+      // grd=context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+      var gra = ctx.createRadialGradient(200,200,50,200,200,100)
+
+      // 在stop处设置color，stop取值 0~1 的浮点值
+      gra.addColorStop(0,'#fff')
+      gra.addColorStop(0.5,'blue')
+      gra.addColorStop(1,'rgba(255,0,0,0.7)')
+
+      ctx.fillStyle = gra
+      // ctx.fillStyle = 'blue'
+      ctx.arc(200,200,120,0,2*Math.PI)
+
+      ctx.globalAlpha = 0.5 // 全局变量的透明度设置，取值：0~1
+      ctx.fill()
+      // ctx.stroke()
+
+      ctx.closePath()
+
+
+    })()
+
+  </script>
+</body>
+
+</html>

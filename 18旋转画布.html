@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>旋转画布</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      ctx.beginPath()
+      //context.rotate(deg) 将图形旋转
+      ctx.strokeRect(150,100,100,100)
+      ctx.rotate(30*Math.PI/180)
+      ctx.strokeRect(150,100,100,100)
+      ctx.stroke()
+
+      // 如何改成在矩形的左上角进行旋转呢？
+      ctx.rotate(-30*Math.PI/180) // 恢复原来的旋转
+      ctx.translate(150,100) // 位移画布原点，到画布的150，100位置
+      ctx.rotate(30*Math.PI/180) // 旋转30度
+      ctx.strokeRect(0,0,100,100) // 绘制矩形
+
+      ctx.closePath()
+
+      // 矩形旋转
+      ctx.beginPath()
+      ctx.fillStyle = 'rgba(255,0,0,0.7)'
+      ctx.rotate(-30 * Math.PI / 180) // 恢复原样
+      ctx.fillRect(100,300,200,100)
+      // 如果进行多次以上操作，这些值会叠加，如果需要清除之前的操作，可以使用以下方法：
+      // 保存和恢复context，save()以及restore()
+      var angle = 0;
+      setInterval(() => {
+        ctx.save() // 保存
+        angle+=10
+        cv.width = 900
+        ctx.fillStyle = 'rgba(255,0,0,0.7)'
+        ctx.translate(200,150)
+        ctx.rotate(angle*Math.PI/180)
+        ctx.fillRect(-100,-50,200,100)
+        ctx.restore() // 恢复
+      }, 100);
+
+      ctx.closePath()
+
+
+    })()
+
+  </script>
+</body>
+
+</html>

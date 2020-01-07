@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>矩形填充</title>
+</head>
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+  (function(){
+    var cv = document.querySelector('#canvasId')
+    var ctx = cv.getContext('2d')
+    cv.width = 900
+    cv.height = 600
+    cv.style.border = '1px solid #ccc'
+
+    //绘制矩形
+    ctx.beginPath()
+    ctx.moveTo(10,100)
+    ctx.lineTo(100,100)
+    ctx.lineTo(100,150)
+    ctx.lineTo(10,150)
+    ctx.closePath()
+
+    ctx.fillStyle = 'teal' // 设置填充颜色
+    ctx.fill() // 填充，默认是黑色
+    ctx.clearRect(10, 100, 10, 10)
+
+    // 快速创建矩形路径，并没有填充和描边
+    ctx.beginPath()
+    ctx.rect(300,300,100,100)
+    // ctx.fill()  //手动填充
+    ctx.stroke()  // 手动描边
+    ctx.closePath()
+
+    // 快速填充矩阵,绘制矩形后立即fill填充
+    ctx.beginPath()
+    ctx.fillRect(150,100,200,150)
+    ctx.closePath()
+  
+
+    // 快速描边矩阵 绘制完路径后立即进行stroke绘制
+    ctx.beginPath()
+    ctx.strokeRect(400,100, 200,150)
+    ctx.closePath()
+    // ctx.clearRect(400, 100, 100, 70)
+    // 清除矩形内容
+    ctx.clearRect(150, 100, 100, 70)
+
+  })()
+  
+  
+  
+  </script>
+</body>
+</html>

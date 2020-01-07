@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>饼状图</title>
+</head>
+
+<body>
+  <canvas id="canvasId">
+    你的浏览器不支持canvas
+  </canvas>
+
+  <script>
+    (function () {
+      var cv = document.querySelector('#canvasId')
+      var ctx = cv.getContext('2d')
+      cv.width = 900
+      cv.height = 600
+      cv.style.border = '1px solid #ccc'
+
+      var data = [
+        {
+          "value": .2,
+          "color": "red",
+          "title": "应届生"
+        }, {
+          "value": .3,
+          "color": "blue",
+          "title": "社会招生"
+        }, {
+          "value": .4,
+          "color": "green",
+          "title": "老学员推荐"
+        }, {
+          "value": .1,
+          "color": "#ccc",
+          "title": "公开课"
+        }
+      ]
+
+      var x=300,y=300,r=100,temp=0;
+      // 绘制开始
+      for(var i=0;i<data.length;i++){
+        ctx.beginPath()
+        ctx.moveTo(x,y)
+        ctx.arc(x,y,r, degToRad(temp-90), degToRad(temp-90+data[i].value*360))
+        temp = temp+data[i].value*360
+        ctx.closePath()
+        ctx.fillStyle = data[i].color
+        ctx.fill()
+      }
+
+      //弧度和角度转换
+      function degToRad(deg){
+        console.log(deg, deg * Math.PI / 180)
+        return deg*Math.PI/180;
+      }
+
+
+
+    })()
+
+  </script>
+</body>
+
+</html>
